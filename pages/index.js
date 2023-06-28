@@ -52,10 +52,10 @@ export default function index() {
 
 <div id="carouselExampleInterval" className="carousel slide" data-bs-ride="carousel">
   <div className="carousel-inner">
-    <div className="carousel-item active" data-bs-interval={1000}>
+    <div className="carousel-item active" data-bs-interval={1500}>
       <img src="/gtr1.jpg" className="d-block w-100" alt="gtr1" />
     </div>
-    <div className="carousel-item" data-bs-interval={1000}>
+    <div className="carousel-item" data-bs-interval={1500}>
       <img src="/gtr2.jpg" className="d-block w-100" alt="gtr2" />
     </div>
   </div>
