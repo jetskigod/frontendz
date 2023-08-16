@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import Swal from 'sweetalert2';
 
 export async function getStaticProps() {
-  const res = await fetch('https://e228-2001-44c8-428c-ac65-85b0-e80d-d962-4d64.ngrok-free.app/api/users')
+  const res = await fetch('https://228f-49-229-100-36.ngrok-free.app/api/users')
   const posts = await res.json()
 
   return {
@@ -22,19 +22,19 @@ export default function Component({ posts }) {
   const router = useRouter()
 
     const handleDelete = async (id) => {
-      // const result = await Swal.fire({
-      //   title: 'Are you sure?',
-      //   text: "You won't be able to revert this!",
-      //   icon: 'warning',
-      //   showCancelButton: true,
-      //   confirmButtonColor: '#3085d6',
-      //   cancelButtonColor: '#d33',
-      //   confirmButtonText: 'Yes, delete it!'
-      // });
+      const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      });
     
-      // if (result.isConfirmed) {
+      if (result.isConfirmed) {
         // Perform the deletion using fetch
-        await fetch('https://e228-2001-44c8-428c-ac65-85b0-e80d-d962-4d64.ngrok-free.app/users?id=' + id, {
+        await fetch('https://228f-49-229-100-36.ngrok-free.app/api/users?id=' + id, {
           method: 'DELETE',
         });
     
@@ -42,12 +42,12 @@ export default function Component({ posts }) {
         router.reload('/dashboard');
     
         // Show success message
-      //   Swal.fire(
-      //     'Deleted!',
-      //     'Your file has been deleted.',
-      //     'success'
-      //   );
-      // }
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        );
+      }
     };
 
   // if (session) {
