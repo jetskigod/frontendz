@@ -21,7 +21,7 @@ const connection = mysql.createConnection({
       const result = connection.query("INSERT INTO tbl_users SET ?",{
         studentid,firstname,lastname,username,password,status
       });
-      return res.status(200).json({...req.body, id: result.insertId});
+      return res.status(200).json({"status":"ok", "message":req.body, "id": result.insertId});
 
     }else if (req.method === 'PUT'){
 
@@ -30,7 +30,7 @@ const connection = mysql.createConnection({
           req.body,
           req.body.id,
         ]);
-        return res.status(200).json({...req.body, id: result.insertId});
+        return res.status(200).json({...req.body,id: result.insertId});
       } catch (error){
         return res.status(500).json({ message: error.message});
       }
