@@ -1,37 +1,72 @@
 
 import { useSession, signIn, signOut } from "next-auth/react"
+import Link from "next/link";
+import { useRouter } from "next/router";
+import Swal from 'sweetalert2';
 
 export async function getStaticProps() {
-  const res = await fetch('http://localhost:3000/api/users')
+  const res = await fetch('https://e228-2001-44c8-428c-ac65-85b0-e80d-d962-4d64.ngrok-free.app/api/users')
   const posts = await res.json()
 
   return {
     props: {
       posts,
     },
-  }
+  };
 }
+
+
 
 export default function Component({ posts }) {
   const { data: session } = useSession()
+  const router = useRouter()
 
-  if (session) {
+    const handleDelete = async (id) => {
+      const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      });
+    
+      if (result.isConfirmed) {
+        // Perform the deletion using fetch
+        await fetch('https://e228-2001-44c8-428c-ac65-85b0-e80d-d962-4d64.ngrok-free.app/users?id=' + id, {
+          method: 'DELETE',
+        });
+    
+        // Reload the page
+        router.reload('/dashboard');
+    
+        // Show success message
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        );
+      }
+    };
+
+  // if (session) {
     return (
       <>
 
 <nav class="navbar navbar-dark bg-danger">
-  <div className="container-fluid">
+  {/* <div className="container-fluid">
   <div className="col">
   <div align="right"> Signed in as {session.user.fname} {session.user.lname} <button  className="btn btn-danger" onClick={() => signOut()}>Sign out</button> </div>
   </div>
-  </div>
+  </div> */}
 </nav>
 <br></br>
 
         <div className="container">
           <div className="row">
           </div>
-          <div align="right">  <button className="btn btn-success text-n">Add Data</button> {/* ปุ่ม Delete */} </div>
+          <div align="right">  <button className="btn btn-success text-n"><Link href="./dashboard/adddata" >Add Data</Link></button> </div>
           <br></br>
           <div className="row">
             <div className="col">
@@ -58,7 +93,7 @@ export default function Component({ posts }) {
                       <td>{post.status}</td>
                       <td>
                         <button className="btn btn-warning">Edit</button> {/* ปุ่ม Edit */}
-                        <button className="btn btn-danger">Delete</button> {/* ปุ่ม Delete */}
+                        <button className="btn btn-danger" onClick={()=> handleDelete(post.id)}>Delete</button> {/* ปุ่ม Delete */}
                       </td>
                     </tr>
                   ))}
@@ -71,10 +106,10 @@ export default function Component({ posts }) {
     )
   }
 
-  return (
+  {/* return (
     <>
       Not signed in <br />
       <button onClick={() => signIn()}>Sign in</button>
     </>
   )
-}
+} */}
