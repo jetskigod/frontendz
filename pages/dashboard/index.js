@@ -3,8 +3,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 // import Swal from 'sweetalert2';
 
-export async function getStaticProps() {
-  const res = await fetch('https://e228-2001-44c8-428c-ac65-85b0-e80d-d962-4d64.ngrok-free.app/api/users')
+export async function getServerSideProps() {
+  const res = await fetch('https://e138-2405-9800-b911-406-e1ae-94a1-c523-b6a1.ngrok-free.app/api/users')
   const posts = await res.json()
 
   return {
@@ -33,12 +33,12 @@ export default function Component({ posts }) {
     
       // if (result.isConfirmed) {
         // Perform the deletion using fetch
-        await fetch('https://e228-2001-44c8-428c-ac65-85b0-e80d-d962-4d64.ngrok-free.app/users?id=' + id, {
+         fetch('https://e138-2405-9800-b911-406-e1ae-94a1-c523-b6a1.ngrok-free.app/api/users?id=' + id, {
           method: 'DELETE',
-        });
+        })
     
         // Reload the page
-        router.reload('/dashboard');
+       return router.push('/dashboard');
     
         // Show success message
       //   Swal.fire(
