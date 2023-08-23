@@ -12,7 +12,7 @@ const connection = mysql.createConnection({
     const { id } = req.query
 // simple query
 connection.query(
-    'SELECT * FROM `tbl_users` WHERE `id` = ?',[id],
+    'SELECT * FROM `tbl_userss` WHERE `id` = ?',[id],
     function(err, results) {
       console.log(results); // results contains rows returned by server
       res.status(200).json({users: results});
