@@ -29,7 +29,7 @@ export default function Component({ posts }) {
 
 
 
-    fetch(`https://acdf-223-24-168-145.ngrok-free.app/api/users`, {
+    fetch(`https://5bd3-223-24-168-145.ngrok-free.app/api/users`, {
         method: 'POST', // or 'PUT'
         headers: {
           'Content-Type': 'application/json',
