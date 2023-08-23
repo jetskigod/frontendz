@@ -1,11 +1,11 @@
-import { useSession, signIn, signOut } from "next-auth/react";
-import Link from 'next/link';
-import { useRouter } from "next/router";
 
+import { useSession, signIn, signOut } from "next-auth/react"
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 
 export default function Component({ posts }) {
-  const { data: session } = useSession();
+  const { data: session } = useSession()
   const router = useRouter();
 
   const handleSubmit = (event) => {
@@ -20,9 +20,16 @@ export default function Component({ posts }) {
       status: data.get('txt_status')
     }
 
-    console.log("jsonData: ", jsonData)
+    console.log("studentid:", jsonData.studentid);
+    console.log("firstname:", jsonData.firstname);
+    console.log("lastname:", jsonData.lastname);
+    console.log("username:", jsonData.username);
+    console.log("password:", jsonData.password);
+    console.log("status:", jsonData.status);
 
-      fetch(`https://228f-49-229-100-36.ngrok-free.app/api/users`, {
+
+
+    fetch(`https://5bd3-223-24-168-145.ngrok-free.app/api/users`, {
         method: 'POST', // or 'PUT'
         headers: {
           'Content-Type': 'application/json',
@@ -33,7 +40,6 @@ export default function Component({ posts }) {
       .then((data) => {
         if (data.status == 'ok') {
           router.push('/dashboard')
-          console.log("status: ", data.status)
         } else {
           console.log('Add Data Not Success')
           router.push('/dashboard')
@@ -41,81 +47,60 @@ export default function Component({ posts }) {
       })
       .catch((error) => {
         console.error('Error:', error);
-      })
-      
+      });
+
   };
-  
+
   // if (session) {
-    
     return (
       <>
-        <nav className="navbar navbar-light bg-success">
-          <div className="container-fluid">
-            <div className="d-flex justify-content-between align-items-center w-100">
-              {/* <div>Signed in as {session.user.email} {session.user.fname} {session.user.lname}</div>
-              <button className="btn btn-danger" onClick={() => signOut()}>Sign out</button> */}
-            </div>
-          </div>
-        </nav>
-        <br />
-        <div className="container ">
-        <div className="card mt-4">
-          <div className="card-body">
-          
-            
-            <form onSubmit={handleSubmit}>
-            <button type = "submit" className="btn btn-success">Add New</button>
-            <Link href ="/dashboard">
-            <button className="btn btn-warning mx-1">Back</button>
-            </Link>
-              <div className="form-row">
-                <div className="form-group col-md-10">
-                  <label htmlFor="inputEmail4">Student Id</label>
-                  <input type="text" className="form-control" name ="studentid" id="studentid" placeholder="Student Id" />
-                </div>
-                <div className="form-group col-md-10">
-                  <label htmlFor="inputEmail4">Firstname</label>
-                  <input type="text" className="form-control" name ="firstname" id="firstname" placeholder="Firstname" />
-                </div>
-                <div className="form-group col-md-10">
-                  <label htmlFor="inputAddress">Lastname</label>
-                  <input type="text" className="form-control" name ="lastname" id="lastname" placeholder="Lastname" />
-                </div>
-                <div className="form-group col-md-10">
-                  <label htmlFor="inputAddress">Username</label>
-                  <input type="text" className="form-control" name ="username" id="username" placeholder="Username" />
-                </div>
-                <div className="form-group col-md-10">
-                  <label htmlFor="inputPassword4">Password</label>
-                  <input type="password" className="form-control" name ="password" id="password" placeholder="Password" />
-                </div>
-              </div>
-              <div className="form-group col-md-10">
-                <label htmlFor="inputAddress2">Status</label>
-                <input type="text" className="form-control" name ="status" id="status" placeholder="Status" />
-              </div>
-              <div className="form-group">
-                <div className="form-check">
-                  <input className="form-check-input" type="checkbox" id="gridCheck" />
-                  <label className="form-check-label" htmlFor="gridCheck">
-                    Check me out
-                  </label>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-        </div>
-      </>
-    );
-  // }
 
-  return (
-    <>
-      <div className="alert alert-danger" role="alert">
-        Not signed in <br />
-        <button className="btn btn-primary" onClick={() => signIn()}>Sign in</button>
-      </div>
-    </>
-  );
-}
+<nav class="navbar navbar-dark bg-danger">
+  {/* <div className="container-fluid">
+  <div className="col">
+  <div align="right"> Signed in as {session.user.fname} {session.user.lname} <button  className="btn btn-danger" onClick={() => signOut()}>Sign out</button> </div>
+  </div>
+  </div> */}
+</nav>
+<br></br>
+
+<div className="card mx-auto" style={{ width: "500px" }}>
+
+<div class="card-body">
+    <h5 class="card-title">Add data</h5>
+
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="studentID">StudentID:</label>
+              <input type="text" id="txt_studentid" name="txt_studentid" className="form-control" required />
+              <label htmlFor="firstname">Firstname:</label>
+              <input type="text" id="txt_firstname" name="txt_firstname" className="form-control" required />
+              <label htmlFor="lastname">Lastname:</label>
+              <input type="text" id="txt_lastname" name="txt_lastname" className="form-control" required />
+              <label htmlFor="username">Username:</label>
+              <input type="text" id="txt_username" name="txt_username" className="form-control" required />
+              <label htmlFor="password">Password:</label>
+              <input type="txt_password" id="txt_password" name="txt_password" className="form-control" required />
+              <label htmlFor="status">Status:</label>
+              <input type="text" id="txt_status" name="txt_status" className="form-control" required />
+
+              <br></br>
+
+              <div align="center">  
+              <button type="submit" className="btn btn-success text-n">save</button>
+              <button className="btn btn-danger text-n"><Link href="." >back</Link></button>
+               </div>
+            
+            </form>
+            </div>
+            </div>
+      </>
+    )
+  }
+
+//   return (
+//     <>
+//       Not signed in <br />
+//       <button onClick={() => signIn()}>Sign in</button>
+//     </>
+//   )
+// }

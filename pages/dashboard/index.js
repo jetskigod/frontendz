@@ -1,11 +1,10 @@
-
-import { useSession, signIn, signOut } from "next-auth/react"
+// import { useSession, signIn, signOut } from "next-auth/react"
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 
-export async function getStaticProps() {
-  const res = await fetch('https://228f-49-229-100-36.ngrok-free.app/api/users')
+export async function getServerSideProps() {
+  const res = await fetch('https://5bd3-223-24-168-145.ngrok-free.app/api/users')
   const posts = await res.json()
 
   return {
@@ -18,36 +17,36 @@ export async function getStaticProps() {
 
 
 export default function Component({ posts }) {
-  const { data: session } = useSession()
+  // const { data: session } = useSession()
   const router = useRouter()
 
     const handleDelete = async (id) => {
-      const result = await Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      });
+      // const result = await Swal.fire({
+      //   title: 'Are you sure?',
+      //   text: "You won't be able to revert this!",
+      //   icon: 'warning',
+      //   showCancelButton: true,
+      //   confirmButtonColor: '#3085d6',
+      //   cancelButtonColor: '#d33',
+      //   confirmButtonText: 'Yes, delete it!'
+      // });
     
-      if (result.isConfirmed) {
+      // if (result.isConfirmed) {
         // Perform the deletion using fetch
-        await fetch('https://228f-49-229-100-36.ngrok-free.app/api/users?id=' + id, {
+         fetch('https://5bd3-223-24-168-145.ngrok-free.app/api/users?id=' + id, {
           method: 'DELETE',
-        });
+        })
     
         // Reload the page
-        router.reload('/dashboard');
+       return router.push('/dashboard');
     
         // Show success message
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        );
-      }
+      //   Swal.fire(
+      //     'Deleted!',
+      //     'Your file has been deleted.',
+      //     'success'
+      //   );
+      // }
     };
 
   // if (session) {
@@ -104,12 +103,12 @@ export default function Component({ posts }) {
         </div>
       </>
     )
-  }
+  // }
 
-  {/* return (
+   return (
     <>
       Not signed in <br />
       <button onClick={() => signIn()}>Sign in</button>
     </>
   )
-} */}
+   }
