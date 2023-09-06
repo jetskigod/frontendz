@@ -76,6 +76,7 @@ export default function Component({ posts }) {
                     <th>Student ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
+                    <th>username</th>
                     <th>Password</th>
                     <th>status</th>
                     <th>edit/delete</th> {/* เพิ่มคอลัมน์ Action */}
@@ -88,11 +89,12 @@ export default function Component({ posts }) {
                       <td>{post.studentid}</td>
                       <td>{post.firstname}</td>
                       <td>{post.lastname}</td>
+                      <td>{post.username}</td>
                       <td>{post.password}</td>
                       <td>{post.status}</td>
                       <td>
                       <Link href={`/dashboard/frmEdit?id=${post.id}`} className="btn btn-warning">
-                            <i className="bi bi-pencil-square"></i>
+                            <i className="bi bi-pencil-square">Edit</i>
                           </Link>{" "}
                           <button className="btn btn-danger" onClick={()=> handleDelete(post.id)}>Delete</button> {/* ปุ่ม Delete */}
                       </td>
