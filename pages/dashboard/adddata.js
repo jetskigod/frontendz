@@ -19,17 +19,13 @@ export default function Component({ posts }) {
       password: data.get('txt_password'),
       status: data.get('txt_status')
     }
-
     console.log("studentid:", jsonData.studentid);
     console.log("firstname:", jsonData.firstname);
     console.log("lastname:", jsonData.lastname);
     console.log("username:", jsonData.username);
     console.log("password:", jsonData.password);
     console.log("status:", jsonData.status);
-
-
-
-    fetch(`https://5bd3-223-24-168-145.ngrok-free.app/api/users`, {
+    fetch('https://48ca-223-24-162-163.ngrok-free.app/api/users', {
         method: 'POST', // or 'PUT'
         headers: {
           'Content-Type': 'application/json',
@@ -49,7 +45,8 @@ export default function Component({ posts }) {
         console.error('Error:', error);
       });
 
-  };
+  }; //end handleSubmit
+
 
   // if (session) {
     return (

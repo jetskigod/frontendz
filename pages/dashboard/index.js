@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 // import Swal from 'sweetalert2';
 
 export async function getServerSideProps() {
-  const res = await fetch('https://5bd3-223-24-168-145.ngrok-free.app/api/users')
+  const res = await fetch('https://48ca-223-24-162-163.ngrok-free.app/api/users')
   const posts = await res.json()
 
   return {
@@ -33,7 +33,7 @@ export default function Component({ posts }) {
     
       // if (result.isConfirmed) {
         // Perform the deletion using fetch
-         fetch('https://5bd3-223-24-168-145.ngrok-free.app/api/users?id=' + id, {
+        fetch('https://48ca-223-24-162-163.ngrok-free.app/api/users?id=' + id, {
           method: 'DELETE',
         })
     
