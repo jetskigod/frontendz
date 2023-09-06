@@ -1,10 +1,10 @@
-// import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, signIn, signOut } from "next-auth/react"
 import Link from "next/link";
 import { useRouter } from "next/router";
 // import Swal from 'sweetalert2';
 
 export async function getServerSideProps() {
-  const res = await fetch('https://48ca-223-24-162-163.ngrok-free.app/api/users')
+  const res = await fetch('http://localhost:3001/api/users')
   const posts = await res.json()
 
   return {
@@ -17,7 +17,7 @@ export async function getServerSideProps() {
 
 
 export default function Component({ posts }) {
-  // const { data: session } = useSession()
+  const { data: session } = useSession()
   const router = useRouter()
 
     const handleDelete = async (id) => {
@@ -33,7 +33,7 @@ export default function Component({ posts }) {
     
       // if (result.isConfirmed) {
         // Perform the deletion using fetch
-        fetch('https://48ca-223-24-162-163.ngrok-free.app/api/users?id=' + id, {
+        fetch('http://localhost:3001/api/users?id=' + id, {
           method: 'DELETE',
         })
     
@@ -49,18 +49,18 @@ export default function Component({ posts }) {
       // }
     };
 
-  // if (session) {
+  if (session) {
     return (
       <>
 
-<nav class="navbar navbar-dark bg-danger">
-  {/* <div className="container-fluid">
-  <div className="col">
-  <div align="right"> Signed in as {session.user.fname} {session.user.lname} <button  className="btn btn-danger" onClick={() => signOut()}>Sign out</button> </div>
-  </div>
-  </div> */}
-</nav>
-<br></br>
+      <nav class="navbar navbar-dark bg-danger">
+        <div className="container-fluid">
+        <div className="col">
+        <div align="right"> Signed in as {session.user.username} {session.user.lastname} <button  className="btn btn-danger" onClick={() => signOut()}>Sign out</button> </div>
+        </div>
+        </div>
+      </nav>
+      <br></br>
 
         <div className="container">
           <div className="row">
@@ -91,8 +91,10 @@ export default function Component({ posts }) {
                       <td>{post.password}</td>
                       <td>{post.status}</td>
                       <td>
-                        <button className="btn btn-warning">Edit</button> {/* ปุ่ม Edit */}
-                        <button className="btn btn-danger" onClick={()=> handleDelete(post.id)}>Delete</button> {/* ปุ่ม Delete */}
+                      <Link href={`/dashboard/frmEdit?id=${post.id}`} className="btn btn-warning">
+                            <i className="bi bi-pencil-square"></i>
+                          </Link>{" "}
+                          <button className="btn btn-danger" onClick={()=> handleDelete(post.id)}>Delete</button> {/* ปุ่ม Delete */}
                       </td>
                     </tr>
                   ))}
@@ -103,7 +105,7 @@ export default function Component({ posts }) {
         </div>
       </>
     )
-  // }
+  }
 
    return (
     <>
