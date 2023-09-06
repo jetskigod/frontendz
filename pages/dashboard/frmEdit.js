@@ -1,32 +1,32 @@
-import { useSession, signIn, signOut } from "next-auth/react";
-import Image from "next/image";
-import Link from "next/link";
+
+import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export async function getStaticProps(req) {
-  const id = req.query;
-  const res = await fetch('http://localhost:3000/api/users?id=' + id, {
-    method: 'GET',
-  })
-  const posts = await res.json();
-
-  return {
-    props: {
-      posts,
-    },
-  };
-}
+    const id = req.query;
+    const res = await fetch('http://localhost:3001/api/users?id=' + id, {
+      method: 'GET',
+    })
+    const posts = await res.json();
+  
+    return {
+      props: {
+        posts,
+      },
+    };
+  }
 
 export default function Component({ posts }) {
-  const { data: session } = useSession();
-  const router = useRouter()
+  const { data: session } = useSession()
+  const router = useRouter();
 
-  //----------------------start handleUpdate--------------------------
   const handleUpdate = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const jsonData = {
-      id: data.get('txt_studentid'),
+        id: data.get('txt_studentid'),
+
       studentid: data.get('txt_studentid'),
       firstname: data.get('txt_firstname'),
       lastname: data.get('txt_lastname'),
@@ -34,8 +34,13 @@ export default function Component({ posts }) {
       password: data.get('txt_password'),
       status: data.get('txt_status')
     }
-
-      fetch(`http://localhost:3000/api/users`, {
+    console.log("studentid:", jsonData.studentid);
+    console.log("firstname:", jsonData.firstname);
+    console.log("lastname:", jsonData.lastname);
+    console.log("username:", jsonData.username);
+    console.log("password:", jsonData.password);
+    console.log("status:", jsonData.status);
+    fetch('http://localhost:3000/api/users', {
         method: 'PUT', // or 'PUT'
         headers: {
           'Content-Type': 'application/json',
@@ -54,177 +59,130 @@ export default function Component({ posts }) {
       .catch((error) => {
         console.error('Error:', error);
       });
- 
 
   }; //end handleSubmit
-//----------------------end handleSubmit--------------------------
-  if (session) {
+
+
+  // if (session) {
     return (
       <>
-        <header>
-          <nav className="navbar fixed-top navbar-expand-lg bg-warning">
-            <div className="container-fluid">
-              <a className="navbar-brand" href="#">
-                <Image
-                  src="http://it.cmtc.ac.th/web2017/photo/logo/2017/1513260726_1-org.png"
-                  width={250}
-                  height={40}
-                  alt="logo"
-                />
-              </a>
-              <button
-                className="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span className="navbar-toggler-icon" />
-              </button>
-              <div
-                className="collapse navbar-collapse"
-                id="navbarSupportedContent"
-              >
-                <ul className="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-                Signed In as {session.user.fname} {session.user.lname}
-                <span>&nbsp;</span>
-                <form className="d-flex" role="search">
-                  <button
-                    className="btn btn-danger"
-                    type="submit"
-                    onClick={() => signOut()}
-                  >
-                    ออกจากระบบ
-                  </button>
-                </form>
-              </div>
-            </div>
-          </nav>
-        </header>
-        <br />
-        <br />
-        <br />
-        <br />
-        <main>
-          <div className="container-fluid">
-            <p></p>
-            <div className="row">
-              <div className="col-md-12">
-                <div className="card">
-                  <h5 className="card-header">
-                    <i className="bi bi-person-vcard-fill" /> Add Member
-                  </h5>
-                  <div className="card-body">
-                 
-                    <form onSubmit={handleUpdate}>
-                    {posts.users.map((post, i) => (
-                    <>
-                    <div className="input-group mb-3">
-                        <input
-                          type="text"
-                          name="txt_studentid"
-                          id="txt_studentid"
-                          className="form-control bg-white"
-                          placeholder="StudentID"
-                          // onChange={(event) => { setId(event.target.value) }}
-                          defaultValue={post.id}
-                          required
-                        />
-                      </div>
-                      <div className="input-group mb-3">
-                        <input
-                          type="text"
-                          name="txt_firstname"
-                          id="txt_firstname"
-                          className="form-control bg-white"
-                          placeholder="Firstname"
-                          // onChange={(event) => { setFirstname(event.target.value) }}
-                          defaultValue={post.firstname}
-                          required
-                        />
-                      </div>
-                      <div className="input-group mb-3">
-                        <input
-                          type="text"
-                          name="txt_lastname"
-                          id="txt_lastname"
-                          className="form-control bg-white"
-                          placeholder="Lastname"
-                          // onChange={(event) => { setLastname(event.target.value) }}
-                          defaultValue={post.lastname}
-                          required
-                        />
-                      </div>
-                      <div className="input-group mb-3">
-                        <input
-                          type="text"
-                          name="txt_username"
-                          id="txt_username"
-                          className="form-control bg-white"
-                          placeholder="Username"
-                          // onChange={(event) => { setUsername(event.target.value) }}
-                          defaultValue={post.username}
-                          required
-                        />
-                      </div>
-                      <div className="input-group mb-3">
-                        <input
-                          type="text"
-                          name="txt_password"
-                          id="txt_password"
-                          className="form-control bg-white"
-                          placeholder="Password"
-                          // onChange={(event) => { setPassword(event.target.value) }}
-                          defaultValue={post.password}
-                          required
-                        />
-                      </div>
-                      <div className="input-group mb-3">
-                        <input
-                          type="text"
-                          name="txt_status"
-                          id="txt_status"
-                          className="form-control bg-white"
-                          // onChange={(event) => { setStatus(event.target.value) }}
-                          defaultValue={post.status}
-                          placeholder="Status"
-                          required
-                        />
-                      </div>
 
-                      <p />
-                      <div className="row">
-                        <div className="col-md-12 text-center text-lg-start">
-                          <button
-                            type="submit"
-                            className="btn btn-success btn-block"
-                          >
-                            <span>Save</span>{" "}
-                            <i className="bi bi-arrow-right" />
-                          </button>&nbsp;&nbsp;&nbsp;
-                          <Link href="./" className="btn btn-warning">Back</Link>
-                        </div>
-                      </div>
-                      </>
-                    ))}
-                    </form>
-                    <p></p>
-                  </div>
-                </div>
-              </div>
-            </div>
+<nav class="navbar navbar-dark bg-danger">
+  {/* <div className="container-fluid">
+  <div className="col">
+  <div align="right"> Signed in as {session.user.fname} {session.user.lname} <button  className="btn btn-danger" onClick={() => signOut()}>Sign out</button> </div>
+  </div>
+  </div> */}
+</nav>
+<br></br>
+
+<div className="card mx-auto" style={{ width: "500px" }}>
+
+<div class="card-body">
+    <h5 class="card-title">Add data</h5>
+
+    <form onSubmit={handleUpdate}>
+           {posts.users.map((post, i) => (
+            <>
+
+    <div className="form-group">
+            <label></label>
+            <input
+              type="hidden"
+              name="txt_studentid"
+              id="txt_studentid"
+              className="form-control"
+              defaultValue={post.id}
+            />
           </div>
-        </main>
-        <br></br>
+
+          <div className="form-group">
+            <label>Student ID:</label>
+            <input
+              type="text"
+              name="txt_studentid"
+              id="txt_studentid"
+              className="form-control"
+              defaultValue={post.id}
+              disabled
+            />
+          </div>
+          <div className="form-group">
+            <label>First Name:</label>
+            <input
+              type="text"
+              name="txt_firstname"
+              id="txt_firstname"
+              className="form-control"
+              defaultValue={post.firstname}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Last Name:</label>
+            <input
+              type="text"
+              name="txt_lastname"
+              id="txt_lastname"
+              className="form-control"
+              defaultValue={post.lastname}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>username:</label>
+            <input
+              type="text"
+              name="txt_username"
+              id="txt_username"
+              className="form-control"
+              defaultValue={post.username}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Password:</label>
+            <input
+              type="text"
+              name="txt_password"
+              id="txt_password"
+              className="form-control"
+              defaultValue={post.password}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Status:</label>
+            <input
+              type="text"
+              name="txt_status"
+              id="txt_status"
+              className="form-control"
+              defaultValue={post.status}
+              placeholder="Status"
+              required
+            />
+          </div>
+          <br></br>
+          <tr>
+            <td>
+          <button type="submit" className="btn btn-success">SAVE</button> {/* */}
+          <Link href="./" >  <button type="submit" className="btn btn-warning">Back</button></Link>{/* */}
+          </td>
+          </tr>
+          </>
+                    ))}
+          </form>
+            </div>
+            </div>
       </>
-    );
+    )
   }
-  return (
-    <>
-      Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
-    </>
-  );
-}
+
+//   return (
+//     <>
+//       Not signed in <br />
+//       <button onClick={() => signIn()}>Sign in</button>
+//     </>
+//   )
+// }
