@@ -72,9 +72,7 @@ const connection = mysql.createConnection({
 
     try{
       const result = connection.query("DELETE FROM tbl_users WHERE id = ?",[req.query.id]);
-  
       return res.status(200).json({ ...req.body, id: result.insertId});
-  
     } catch (error){
       return res.status(500).json({ message: error.message });
     }
