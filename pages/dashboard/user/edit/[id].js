@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 
 export async function getServerSideProps(req) {
-    const id = req.query;
-    const res = await fetch('https://frontendz.vercel.app/api/users?id=' + id, {
+    const { id } = req.query;
+    const res = await fetch('https://frontendz.vercel.app/api/users/' + id, {
       method: 'GET',
     })
     const posts = await res.json();
@@ -79,7 +79,7 @@ export default function Component({ posts }) {
 <div className="card mx-auto" style={{ width: "500px" }}>
 
 <div class="card-body">
-    <h5 class="card-title">Add data</h5>
+    <h5 class="card-title">Edit</h5>
 
     <form onSubmit={handleUpdate}>
            {posts.users.map((post, i) => (
@@ -167,7 +167,7 @@ export default function Component({ posts }) {
           <tr>
             <td>
           <button type="submit" className="btn btn-success">SAVE</button> {/* */}
-          <Link href="./" >  <button type="submit" className="btn btn-warning">Back</button></Link>{/* */}
+          <Link href="/dashboard" >  <button type="submit" className="btn btn-warning">Back</button></Link>{/* */}
           </td>
           </tr>
           </>

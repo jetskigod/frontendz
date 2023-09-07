@@ -21,19 +21,8 @@ export default function Component({ posts }) {
   const router = useRouter()
 
     const handleDelete = async (id) => {
-      // const result = await Swal.fire({
-      //   title: 'Are you sure?',
-      //   text: "You won't be able to revert this!",
-      //   icon: 'warning',
-      //   showCancelButton: true,
-      //   confirmButtonColor: '#3085d6',
-      //   cancelButtonColor: '#d33',
-      //   confirmButtonText: 'Yes, delete it!'
-      // });
-    
-      // if (result.isConfirmed) {
-        // Perform the deletion using fetch
-        fetch('https://frontendz.vercel.app//api/users?id=' + id, {
+
+        fetch('https://frontendz.vercel.app/api/users/' + id, {
           method: 'DELETE',
         })
     
@@ -65,7 +54,7 @@ export default function Component({ posts }) {
         <div className="container">
           <div className="row">
           </div>
-          <div align="right">  <button className="btn btn-success text-n"><Link href="./dashboard/user/adddata" >Add Data</Link></button> </div>
+          <div align="right">  <button className="btn btn-success text-n"><Link href="./dashboard/user/add" >Add Data</Link></button> </div>
           <br></br>
           <div className="row">
             <div className="col">
@@ -93,7 +82,7 @@ export default function Component({ posts }) {
                       <td>{post.password}</td>
                       <td>{post.status}</td>
                       <td>
-                      <Link href={`/dashboard/frmEdit?id=${post.id}`} className="btn btn-warning">
+                      <Link href={`/dashboard/user/edit/${post.id}`} className="btn btn-warning">
                             <i className="bi bi-pencil-square">Edit</i>
                           </Link>{" "}
                           <button className="btn btn-danger" onClick={()=> handleDelete(post.id)}>Delete</button> {/* ปุ่ม Delete */}

@@ -84,7 +84,7 @@ export default function Component({ posts }) {
 
               <div align="center">  
               <button type="submit" className="btn btn-success text-n">save</button>
-              <button className="btn btn-danger text-n"><Link href="." >back</Link></button>
+              <button className="btn btn-danger text-n"><Link href="/dashboard" >back</Link></button>
                </div>
             
             </form>
