@@ -2,6 +2,7 @@ const mysql = require('mysql2');
 
 const connection = mysql.createConnection({
     host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_DATABASE,
@@ -9,13 +10,13 @@ const connection = mysql.createConnection({
 
   export default function handler(req, res) {
 
-    res.setHeader('Access-Control-Allow-Credentials', true)
-    res.setHeader('Access-Control-Allow-Origin', '*') // replace this your actual origin
-    res.setHeader('Access-Control-Allow-Methods', 'GET,DELETE,PATCH,POST,PUT')
-    res.setHeader(
-      'Access-Control-Allow-Headers',
-      'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-    )
+  //   res.setHeader('Access-Control-Allow-Credentials', true)
+  //   res.setHeader('Access-Control-Allow-Origin', '*') // replace this your actual origin
+  //   res.setHeader('Access-Control-Allow-Methods', 'GET,DELETE,PATCH,POST,PUT')
+  //   res.setHeader(
+  //     'Access-Control-Allow-Headers',
+  //     'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  //   )
 
     const { studentid, firstname, lastname, username, password, status} = req.body
 

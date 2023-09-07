@@ -3,9 +3,9 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-export async function getStaticProps(req) {
+export async function getServerSideProps(req) {
     const id = req.query;
-    const res = await fetch('http://localhost:3001/api/users?id=' + id, {
+    const res = await fetch('http://localhost:3000/api/users?id=' + id, {
       method: 'GET',
     })
     const posts = await res.json();
