@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 // import Swal from 'sweetalert2';
 
 export async function getServerSideProps() {
-  const res = await fetch('http://localhost:3000/api/users')
+  const res = await fetch('https://frontendz.vercel.app//api/users')
   const posts = await res.json()
 
   return {
@@ -33,7 +33,7 @@ export default function Component({ posts }) {
     
       // if (result.isConfirmed) {
         // Perform the deletion using fetch
-        fetch('http://localhost:3000/api/users?id=' + id, {
+        fetch('https://frontendz.vercel.app//api/users?id=' + id, {
           method: 'DELETE',
         })
     
