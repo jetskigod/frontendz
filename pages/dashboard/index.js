@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 // import Swal from 'sweetalert2';
 
 export async function getServerSideProps() {
-  const res = await fetch('https://frontendz.vercel.app//api/users')
+  const res = await fetch('https://frontendz.vercel.app/api/users')
   const posts = await res.json()
 
   return {

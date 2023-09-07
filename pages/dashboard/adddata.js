@@ -25,7 +25,7 @@ export default function Component({ posts }) {
     console.log("username:", jsonData.username);
     console.log("password:", jsonData.password);
     console.log("status:", jsonData.status);
-    fetch('https://frontendz.vercel.app//api/users', {
+    fetch('https://frontendz.vercel.app/api/users', {
         method: 'POST', // or 'PUT'
         headers: {
           'Content-Type': 'application/json',

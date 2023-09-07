@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export async function getServerSideProps(req) {
     const id = req.query;
-    const res = await fetch('https://frontendz.vercel.app//api/users?id=' + id, {
+    const res = await fetch('https://frontendz.vercel.app/api/users?id=' + id, {
       method: 'GET',
     })
     const posts = await res.json();
@@ -40,7 +40,7 @@ export default function Component({ posts }) {
     console.log("username:", jsonData.username);
     console.log("password:", jsonData.password);
     console.log("status:", jsonData.status);
-    fetch('https://frontendz.vercel.app//api/users', {
+    fetch('https://frontendz.vercel.app/api/users', {
         method: 'PUT', // or 'PUT'
         headers: {
           'Content-Type': 'application/json',
