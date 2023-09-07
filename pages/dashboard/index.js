@@ -65,7 +65,7 @@ export default function Component({ posts }) {
         <div className="container">
           <div className="row">
           </div>
-          <div align="right">  <button className="btn btn-success text-n"><Link href="./dashboard/adddata" >Add Data</Link></button> </div>
+          <div align="right">  <button className="btn btn-success text-n"><Link href="./dashboard/user/adddata" >Add Data</Link></button> </div>
           <br></br>
           <div className="row">
             <div className="col">
